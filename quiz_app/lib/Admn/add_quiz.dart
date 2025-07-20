@@ -1,4 +1,9 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:random_string/random_string.dart';
 
 class AddQuiz extends StatefulWidget {
   const AddQuiz({super.key});
@@ -8,6 +13,26 @@ class AddQuiz extends StatefulWidget {
 }
 
 class _AddQuizState extends State<AddQuiz> {
+  final ImagePicker _picker = ImagePicker();
+  File? selectedImage;
+   Future getImage()async{
+   var image = await _picker.pickImage(source: ImageSource.gallery);
+   selectedImage = File(image!.path);
+   setState(() {
+     
+   });
+   }
+     uploadItem()async{
+      if(selectedImage!=null && option1controller.text!="" 
+      && option2controller.text!="" && option3controller.text!=null
+      && option4controller.text!=null
+      ){
+     String AddId = randomAlphaNumeric(10);
+     Reference firebaseStorageRef = FirebaseStorage.instance.ref().child("bogImages").child(AddId);
+     
+      }
+     }
+
   final List<String> quizItems =['Animal', 'Sports', 'Random','Fruits', 'Objects' ];
   TextEditingController option1controller = TextEditingController();
   TextEditingController option2controller = TextEditingController();
@@ -40,22 +65,43 @@ String? selectedCategory;
             ),
             ),
             SizedBox(height: 20,),
-            Center(child: Material(
-              elevation: 4.0,
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                width: 150,
-                height: 150,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 1.5
+         selectedImage == null? 
+            GestureDetector(
+              onTap: (){
+                getImage();
+              },
+              child: Center(child: Material(
+                elevation: 4.0,
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  width: 150,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1.5
+                    ),
+                    borderRadius: BorderRadius.circular(20)
                   ),
-                  borderRadius: BorderRadius.circular(20)
+                  child: Icon(Icons.camera_alt_outlined, color: Colors.black,),
                 ),
-                child: Icon(Icons.camera_alt_outlined, color: Colors.black,),
-              ),
-            ),),
+              ),),
+            ) :  Center(child: Material(
+                elevation: 4.0,
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  width: 150,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1.5
+                    ),
+                    borderRadius: BorderRadius.circular(20)
+                  ),
+                  child: Image.file(selectedImage!, fit: BoxFit.cover,),
+                ),
+              ),),
             SizedBox(height: 20,),
             Text('Option 1', style: TextStyle(
               color: Colors.black54,
