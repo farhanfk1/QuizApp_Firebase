@@ -14,6 +14,7 @@ class _HomeState extends State<Home> {
       backgroundColor: Color(0xffedf3f6),
       body: SingleChildScrollView(
         child: Container(
+          margin: EdgeInsets.only(bottom: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -33,7 +34,7 @@ class _HomeState extends State<Home> {
                     
                    ClipRRect(
                     borderRadius: BorderRadius.circular(60),
-                    child: Image.asset("images/building.jpg",height: 50,width: 50,fit: BoxFit.cover,)),
+                    child: Image.asset("images/place.jpg",height: 50,width: 50,fit: BoxFit.cover,)),
                     SizedBox(width: 10,),
                     Padding(
                       padding: const EdgeInsets.only(top: 10),

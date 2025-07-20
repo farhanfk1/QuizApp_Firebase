@@ -1,7 +1,26 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz_app/pages/Home.dart';
+import 'package:quiz_app/Admn/add_quiz.dart';
+import 'package:quiz_app/Admn/admin_login.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+   if(kIsWeb){
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: "AIzaSyCxufscnabqnCE-j90kqY2pNGnVwnbERio",
+          authDomain: "quizapp-5b1f1.firebaseapp.com",
+         appId: "1:696384601332:web:5df6a8eb60d7a1448572a1",
+           storageBucket: "quizapp-5b1f1.firebasestorage.app",
+          messagingSenderId: "696384601332",
+           projectId: "quizapp-5b1f1",
+             measurementId: "G-XGVX2RBYKX"
+           ));
+   }else{
+      await Firebase.initializeApp();
+
+   }
   runApp(const MyApp());
 }
 
@@ -33,7 +52,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Home(),
+      home: AddQuiz(),
     );
   }
 }
